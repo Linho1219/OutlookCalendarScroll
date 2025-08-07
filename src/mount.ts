@@ -1,4 +1,4 @@
-import { getCalendarDOMs, tryGetCalendarDOMs } from "./utils";
+import { tryGetCalendarDOMs } from "./utils";
 
 type ScrollIndicatorOptions = {
   next: () => void;
@@ -53,33 +53,30 @@ export function mountScrollIndicator(
     justifyContent: "center",
     pointerEvents: "none",
   });
-  indicator.id = "scroll-indicator";
-  indicator.innerText = "\ue33a";
+  indicator.innerText = "\ue33a"; // Fluent calendar icon
+
   if (dir === "vertical") {
     indicator.style.left = "50%";
+    surface.style.overflowY = "hidden";
   } else {
     indicator.style.top = "50%";
+    surface.style.overflowX = "hidden";
   }
 
   surface.style.position = "relative";
-  surface.style.overflow = "hidden";
 
-  surface.appendChild(indicator);
-
-  function reset(value: number) {
-    accumulated = 0;
-    determinePosition(0, value > 0);
-    indicator.style.backgroundColor = NORMAL_BG;
-    indicator.style.color = NORMAL_COLOR;
+  function setColor(triggered: boolean) {
+    if (triggered) {
+      indicator.style.backgroundColor = TRIGGERED_BG;
+      indicator.style.color = TRIGGERED_COLOR;
+    } else {
+      indicator.style.backgroundColor = NORMAL_BG;
+      indicator.style.color = NORMAL_COLOR;
+    }
   }
+  setColor(false);
 
-  function trigger(value: number) {
-    if (value < 0) prev();
-    else next();
-    reset(value);
-  }
-
-  function determinePosition(value: number, positive = value > 0) {
+  function setPosition(value: number, positive = value > 0) {
     const translate = -value * DISPLAY_DISTANCE_RATIO;
     if (dir === "vertical") {
       if (positive) {
@@ -101,32 +98,36 @@ export function mountScrollIndicator(
       indicator.style.transform = `translateY(-50%) translateX(${translate}px)`;
     }
   }
-  determinePosition(0);
+  setPosition(0);
+
+  function reset(value: number) {
+    accumulated = 0;
+    setPosition(0, value > 0);
+    setColor(false);
+  }
+
+  function trigger(value: number) {
+    if (value < 0) prev();
+    else next();
+    reset(value);
+  }
+
+  surface.appendChild(indicator);
 
   function onWheel(e: WheelEvent) {
+    if (e.ctrlKey) return;
     const delta = dir === "vertical" ? e.deltaY : e.deltaX;
     if (!delta) return;
-    e.preventDefault();
     accumulated += delta;
     const { triggered, value } = interpretAccumulated(
       accumulated,
       TRIGGER_DISTANCE
     );
 
-    // 改变颜色
-    if (triggered) {
-      indicator.style.backgroundColor = TRIGGERED_BG;
-      indicator.style.color = TRIGGERED_COLOR;
-    } else {
-      indicator.style.backgroundColor = NORMAL_BG;
-      indicator.style.color = NORMAL_COLOR;
-    }
-    determinePosition(value);
+    setColor(triggered);
+    setPosition(value);
 
-    // 清除旧计时器
     clearTimeout(timeout);
-
-    // 设置一个新计时器，用来判断“松手”：
     timeout = window.setTimeout(() => {
       if (Math.abs(accumulated) >= TRIGGER_DISTANCE) {
         trigger(value);
@@ -135,7 +136,6 @@ export function mountScrollIndicator(
       }
     }, TRIGGER_TIMEOUT);
   }
-
   surface.addEventListener("wheel", onWheel, { passive: true });
 
   return () => {
