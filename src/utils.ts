@@ -1,24 +1,15 @@
-export function waitForElement(selector: string, timeout = 10000): Promise<Element> {
-  return new Promise((resolve, reject) => {
-    const element = document.querySelector(selector);
-    if (element) return resolve(element);
+export function getCalendarDOMs() {
+  const surface = document.querySelector(
+    '[data-app-section="CalendarModuleSurface"]'
+  ) as HTMLElement | null;
+  const [_, prevBtn, nextBtn] = document.querySelectorAll(
+    '[role="toolbar"] button'
+  ) as NodeListOf<HTMLButtonElement>;
 
-    const observer = new MutationObserver(() => {
-      const el = document.querySelector(selector);
-      if (el) {
-        observer.disconnect();
-        resolve(el);
-      }
-    });
+  if (!surface || !prevBtn || !nextBtn)
+    throw new Error("Calendar DOM elements not found");
 
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    setTimeout(() => {
-      observer.disconnect();
-      reject(new Error(`Timeout waiting for ${selector}`));
-    }, timeout);
-  });
+  const prev = () => prevBtn.click();
+  const next = () => nextBtn.click();
+  return { surface, prevBtn, nextBtn, prev, next };
 }
