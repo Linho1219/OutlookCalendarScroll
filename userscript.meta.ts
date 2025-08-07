@@ -12,8 +12,10 @@ const metadataObject: Metadata = {
 
   homepage: "https://github.com/Linho1219/outlook-calendar-scroll",
   supportURL: "https://github.com/Linho1219/outlook-calendar-scroll/issues",
-  updateURL: "https://github.com/Linho1219/OutlookCalendarScroll/releases/latest/download/outlook-calendar-scroll.user.js",
-  downloadURL: "	https://github.com/Linho1219/OutlookCalendarScroll/releases/latest/download/outlook-calendar-scroll.user.js",
+  updateURL:
+    "https://github.com/Linho1219/OutlookCalendarScroll/releases/latest/download/outlook-calendar-scroll.user.js",
+  downloadURL:
+    "https://github.com/Linho1219/OutlookCalendarScroll/releases/latest/download/outlook-calendar-scroll.user.js",
   icon: "https://outlook.live.com/favicon.ico",
 };
 
