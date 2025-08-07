@@ -3,19 +3,24 @@ name: Release Userscript
 on:
   push:
     tags:
-      - 'v*.*'
+      - "v*.*"
+
+  workflow_dispatch:
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
         with:
-          node-version: 18
-          cache: 'pnpm'
+          version: 10
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
       - name: Install dependencies
         run: pnpm install
       - name: Build
