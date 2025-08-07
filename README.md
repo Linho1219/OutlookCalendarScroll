@@ -18,9 +18,9 @@ Supports natural vertical or horizontal scroll navigation depending on the calen
 
 ## Installation
 
-The source code does not contain the built userscript file (*.user.js).
+[Get it directly from Greasy Fork](https://greasyfork.org/zh-CN/scripts/544953-outlook-calendar-scroll)
 
-Please visit the [Releases page](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest), download `outlook-calendar-scroll.user.js` and put it in a userscript manager (Tampermonkey, Violentmonkey, etc.). Enjoy.
+The source code does not contain the built userscript file (*.user.js). Please visit the [Releases page](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest), download `outlook-calendar-scroll.user.js` and put it in a userscript manager (Tampermonkey, Violentmonkey, etc.). Enjoy.
 
 ## Development
 
@@ -47,11 +47,11 @@ MIT
   - 周/日视图：左右滚动切换周或日
 - 滚动触发带有视觉指示器
 
-## 使用
+## 安装使用
 
-源码不包含构建产物。
+[前往 Greasy Fork 直接安装](https://greasyfork.org/zh-CN/scripts/544953-outlook-calendar-scroll)
 
-请前往 [Release 页面](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest) 下载后导入篡改猴 / 暴力猴等脚本管理器。一般来说直接点击 .user.js 就会自动导入。
+仓库源码不包含构建产物。请前往 [Release 页面](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest) 下载后导入篡改猴 / 暴力猴等脚本管理器。一般来说直接点击 .user.js 就会自动导入。
 
 ## 开发
 
