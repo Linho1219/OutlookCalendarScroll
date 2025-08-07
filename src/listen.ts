@@ -7,13 +7,15 @@ function hookHistoryMethod(type: "pushState" | "replaceState") {
   };
 }
 
+type Views = "day" | "workweek" | "week" | "month";
+
 export type AppState =
   | {
       isCalendar: false;
     }
   | {
       isCalendar: true;
-      view: "day" | "workweek" | "week" | "month";
+      view: Views;
     };
 
 function compareStates(a: AppState, b: AppState): boolean {
