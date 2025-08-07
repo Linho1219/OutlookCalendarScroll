@@ -1,7 +1,7 @@
 import pkg from "./package.json" with { type: "json" };
 
 const metadataObject: Metadata = {
-  name: "outlook Calendar Scroll",
+  name: "Outlook Calendar Scroll",
   namespace: "https://github.com/Linho1219",
   version: pkg.version,
   description: "Scroll to switch calendar months in Outlook PWA",
