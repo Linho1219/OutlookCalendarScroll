@@ -1,6 +1,6 @@
 {
   "name": "outlook-calendar-scroll",
-  "version": "1.2",
+  "version": "1.3",
   "description": "A userscript to enhance scrolling in PWA Outlook calendar",
   "devDependencies": {
     "@types/node": "^24.2.0",
