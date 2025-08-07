@@ -20,7 +20,7 @@ Supports natural vertical or horizontal scroll navigation depending on the calen
 
 The source code does not contain the built userscript file (*.user.js).
 
-Please visit the [Releases page](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest) on GitHub, download `outlook-calendar-scroll.user.js` and put it in a userscript manager (Tampermonkey, Violentmonkey, etc.). Enjoy.
+Please visit the [Releases page](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest), download `outlook-calendar-scroll.user.js` and put it in a userscript manager (Tampermonkey, Violentmonkey, etc.). Enjoy.
 
 ## Development
 
@@ -49,7 +49,9 @@ MIT
 
 ## 使用
 
-源码不包含构建产物。请前往 [Release 页面](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest) 下载后导入脚本管理器。
+源码不包含构建产物。
+
+请前往 [Release 页面](https://github.com/Linho1219/OutlookCalendarScroll/releases/latest) 下载后导入篡改猴 / 暴力猴等脚本管理器。一般来说直接点击 .user.js 就会自动导入。
 
 ## 开发
 

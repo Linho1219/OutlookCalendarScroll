@@ -1,14 +1,20 @@
 import pkg from "./package.json" assert { type: "json" };
 
 const metadataObject: Metadata = {
-  name: "Outlook Scroll Navigation",
-  namespace: "http://tampermonkey.net/",
+  name: "outlook Calendar Scroll",
+  namespace: "https://github.com/Linho1219",
   version: pkg.version,
   description: "Scroll to switch calendar months in Outlook PWA",
-  author: "You",
+  author: "Linho1219",
   match: ["https://outlook.live.com/*", "https://outlook.office.com/*"],
   grant: "none",
   "run-at": "document-end",
+
+  homepage: "https://github.com/Linho1219/outlook-calendar-scroll",
+  supportURL: "https://github.com/Linho1219/outlook-calendar-scroll/issues",
+  updateURL: "https://github.com/Linho1219/OutlookCalendarScroll/releases/latest/download/outlook-calendar-scroll.user.js",
+  downloadURL: "	https://github.com/Linho1219/OutlookCalendarScroll/releases/latest/download/outlook-calendar-scroll.user.js",
+  icon: "https://outlook.live.com/favicon.ico",
 };
 
 interface Metadata {
