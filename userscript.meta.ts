@@ -1,7 +1,9 @@
+import pkg from "./package.json" assert { type: "json" };
+
 const metadataObject: Metadata = {
   name: "Outlook Scroll Navigation",
   namespace: "http://tampermonkey.net/",
-  version: "0.1",
+  version: pkg.version,
   description: "Scroll to switch calendar months in Outlook PWA",
   author: "You",
   match: ["https://outlook.live.com/*", "https://outlook.office.com/*"],
