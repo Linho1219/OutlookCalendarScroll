@@ -10,6 +10,7 @@ const metadataObject: Metadata = {
     "https://outlook.live.com/*",
     "https://outlook.office.com/*",
     "https://outlook.office365.com/*",
+    "https://outlook.cloud.microsoft/*",
   ],
   grant: "none",
   "run-at": "document-end",
