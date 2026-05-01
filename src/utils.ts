@@ -1,9 +1,9 @@
 export function getCalendarDOMs() {
   const surface = document.querySelector(
-    '[data-app-section="CalendarModuleSurface"]'
+    '[data-app-section="CalendarModuleSurface"]',
   ) as HTMLElement | null;
   const [_, prevBtn, nextBtn] = document.querySelectorAll(
-    '[role="toolbar"] button'
+    '[role="toolbar"] button',
   ) as NodeListOf<HTMLButtonElement>;
 
   if (!surface || !prevBtn || !nextBtn)
@@ -29,4 +29,8 @@ export async function tryGetCalendarDOMs(): Promise<
       }
     }, interval);
   });
+}
+
+export function getWeekDayScrollerEl() {
+  return document.querySelector(".inDayScrollContainer") as HTMLElement | null;
 }

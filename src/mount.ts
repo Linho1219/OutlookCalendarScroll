@@ -1,4 +1,4 @@
-import { tryGetCalendarDOMs } from "./utils";
+import { getWeekDayScrollerEl, tryGetCalendarDOMs } from "./utils";
 
 type ScrollIndicatorOptions = {
   next: () => void;
@@ -21,7 +21,7 @@ function interpretAccumulated(accumulated: number, TRIGGER_DISTANCE: number) {
 export function mountScrollIndicator(
   surface: HTMLElement,
   dir: "horizontal" | "vertical",
-  { next, prev }: ScrollIndicatorOptions
+  { next, prev }: ScrollIndicatorOptions,
 ) {
   const INDICATOR_SIZE = 50;
   const TRIGGER_DISTANCE = 400;
@@ -112,6 +112,15 @@ export function mountScrollIndicator(
   function trigger(value: number) {
     if (value < 0) prev();
     else next();
+    if (dir === "horizontal") {
+      const scrollEl = getWeekDayScrollerEl();
+      if (scrollEl) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollEl;
+        if (value < 0)
+          scrollEl.scrollLeft = Math.max(0, scrollWidth - clientWidth);
+        else scrollEl.scrollLeft = 0;
+      }
+    }
     reset(value);
   }
 
@@ -120,18 +129,28 @@ export function mountScrollIndicator(
   function onWheel(e: WheelEvent) {
     if (e.ctrlKey) return;
     let delta;
-      // Minor change to allow shift scroll to work horizontally
-      if (dir === "vertical") {
-        if (e.shiftKey) return;
-        delta = e.deltaY;
-      } else {
-        delta = e.deltaX !== 0 ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
-      }
+    // Minor change to allow shift scroll to work horizontally
+    if (dir === "vertical") {
+      if (e.shiftKey) return;
+      delta = e.deltaY;
+    } else {
+      delta = e.deltaX !== 0 ? e.deltaX : e.shiftKey ? e.deltaY : 0;
+    }
     if (!delta) return;
+    if (dir === "horizontal") {
+      const originalScrollEl = getWeekDayScrollerEl();
+      if (originalScrollEl) {
+        const { scrollLeft, scrollWidth, clientWidth } = originalScrollEl;
+        console.log(scrollLeft, delta);
+        if (delta < 0 && scrollLeft > 0) return;
+        if (delta > 0 && Math.ceil(scrollLeft) + clientWidth < scrollWidth)
+          return;
+      }
+    }
     accumulated += delta;
     const { triggered, value } = interpretAccumulated(
       accumulated,
-      TRIGGER_DISTANCE
+      TRIGGER_DISTANCE,
     );
 
     setColor(triggered);
