@@ -7,7 +7,7 @@ function hookHistoryMethod(type: "pushState" | "replaceState") {
   };
 }
 
-type Views = "day" | "workweek" | "week" | "month";
+export type Views = "day" | "workweek" | "week" | "month";
 
 export type AppState =
   | {

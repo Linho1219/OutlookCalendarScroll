@@ -25,13 +25,17 @@ export function mountScrollIndicator(
 ) {
   const INDICATOR_SIZE = 50;
   const TRIGGER_DISTANCE = 400;
-  const DISPLAY_DISTANCE_RATIO = 0.2;
+  const DISPLAY_DISTANCE_RATIO = dir === "vertical" ? 0.25 : 0.35;
+  const DISPLAY_SHADOW_RATIO = 0.035;
   const TRIGGER_TIMEOUT = 200;
 
-  const NORMAL_BG = "var(--neutralTertiary)";
-  const NORMAL_COLOR = "var(--black)";
-  const TRIGGERED_BG = "var(--themePrimary)";
-  const TRIGGERED_COLOR = "var(--white)";
+  const NORMAL_BG = "var(--oobeWhite)";
+  const NORMAL_COLOR = "var(--oobePrimary)";
+  const TRIGGERED_BG = "var(--oobeDarkAlt)";
+  const TRIGGERED_COLOR = "var(--oobeWhite)";
+  const BOX_SHADOW = "0 2px 4px rgba(0,0,0,0.2)";
+  const EMISSION_COLOR =
+    "color-mix(in srgb, var(--oobePrimary) 25%, transparent)";
 
   let accumulated = 0;
   let timeout: number | undefined;
@@ -48,13 +52,20 @@ export function mountScrollIndicator(
     color: NORMAL_COLOR,
     fontFamily: "FluentSystemIcons",
     zIndex: "9999",
-    transition: "transform 0.06s, background-color 0.1s, color 0.1s",
+    transition: [
+      "transform 0.1s",
+      "background-color 0.1s",
+      "color 0.1s",
+      "box-shadow 0.1s linear",
+      "opacity 0.3s",
+    ].join(","),
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     pointerEvents: "none",
+    opacity: "0",
   });
-  indicator.innerText = "\ue32c"; // Fluent calendar icon
+  indicator.innerText = "\ue350"; // Fluent calendar icon
 
   if (dir === "vertical") {
     indicator.style.left = "50%";
@@ -80,7 +91,10 @@ export function mountScrollIndicator(
   setColor(false);
 
   function setPosition(value: number, positive = value > 0) {
+    indicator.style.opacity = value ? "1" : "0";
     const translate = -value * DISPLAY_DISTANCE_RATIO;
+    const shadowSize = Math.abs(value) * DISPLAY_SHADOW_RATIO;
+    indicator.style.boxShadow = `${BOX_SHADOW}, 0 0 0 ${shadowSize}px ${EMISSION_COLOR}`;
     if (dir === "vertical") {
       if (positive) {
         indicator.style.bottom = `-${INDICATOR_SIZE}px`;
